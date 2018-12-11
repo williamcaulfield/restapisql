@@ -56,12 +56,13 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	db, err := sql.Open("mysql", "root@/social_network")
+	db, err := sql.Open("mysql", "root:Tennis1049@/social_network")
 	if err != nil {
 	}
 	database = db
 
 	gorillaRoute := mux.NewRouter()
+	gorillaRoute.HandleFunc("/api/user/create", CreateUser).Methods("GET")
 	gorillaRoute.HandleFunc("/api/{user:[0-9]+}", Hello)
 	http.Handle("/", gorillaRoute)
 	http.ListenAndServe(":8080", nil)
